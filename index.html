@@ -20,12 +20,12 @@
     }
     .logo-section img {
       width: 160px;
-    } 
+    }
 
     h1 {
       margin-top: 100px;
       text-align: center;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
     }
 
     .main-layout {
@@ -55,14 +55,6 @@
     }
     .team-table th {
       background: rgba(255,255,255,0.1);
-    }
-
-    /* darken section headers */
-    .section-header th {
-      background: rgba(0,0,0,0.85) !important;
-      color: #fff;
-      font-weight: bold;
-      text-align: center;
     }
 
     .field-wrapper {
@@ -103,7 +95,7 @@
       align-items: stretch;
       gap: 10px;
     }
-    .controls-panel select,
+    .controls-panel input,
     .controls-panel button {
       padding: 10px;
       font-size: 16px;
@@ -155,19 +147,19 @@
     <div class="team-table">
       <h3>Players & Teams</h3>
       <table>
-        <tr class="section-header"><th>#</th><th>Selected Players</th></tr>
+        <tr><th>#</th><th>Selected Players</th></tr>
         <tbody id="selectedList"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr class="section-header"><th>#</th><th>Team 1</th></tr>
+        <tr><th>#</th><th>Team 1</th></tr>
         <tbody id="team1list"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr class="section-header"><th>#</th><th>Team 1 Subs</th></tr>
+        <tr><th>#</th><th>Team 1 Subs</th></tr>
         <tbody id="team1subs"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr class="section-header"><th>#</th><th>Team 2</th></tr>
+        <tr><th>#</th><th>Team 2</th></tr>
         <tbody id="team2list"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr class="section-header"><th>#</th><th>Team 2 Subs</th></tr>
+        <tr><th>#</th><th>Team 2 Subs</th></tr>
         <tbody id="team2subs"><tr><td>-</td><td>-</td></tr></tbody>
       </table>
     </div>
@@ -181,25 +173,8 @@
 
     <div>
       <div class="controls-panel">
-        <select id="playerSelect">
-          <option value="">-- Select a player --</option>
-          <option value="Tashreeq">Tashreeq</option>
-          <option value="Jawaad">Jawaad</option>
-          <option value="Uzair">Uzair</option>
-          <option value="Ridhaa">Ridhaa</option>
-          <option value="Toufeeq">Toufeeq</option>
-          <option value="Joshua">Joshua</option>
-          <option value="Keenan">Keenan</option>
-          <option value="Dylan">Dylan</option>
-          <option value="Dani">Dani</option>
-          <option value="Mr E">Mr E</option>
-          <option value="Matthew">Matthew</option>
-          <option value="Mr S">Mr S</option>
-          <option value="Shuaib">Shuaib</option>
-          <option value="Mickey">Mickey</option>
-          <option value="Shadly">Shadly</option>
-          <option value="Guest">Guest</option>
-        </select>
+        <input type="text" id="playerInput" placeholder="Enter player name" 
+          onkeypress="if(event.key === 'Enter'){ addPlayer(); }" />
         <button class="add-btn" onclick="addPlayer()">Add Player</button>
         <button class="random-btn" onclick="randomizeTeams()">Randomize Teams</button>
       </div>
@@ -245,13 +220,12 @@
   }
 
   function addPlayer() {
-    const select = document.getElementById("playerSelect");
-    const playerName = select.value;
+    const input = document.getElementById("playerInput");
+    const playerName = input.value.trim();
     if (playerName && !selectedPlayers.includes(playerName)) {
       selectedPlayers.push(playerName);
       renderList("selectedList", selectedPlayers);
-      select.remove(select.selectedIndex);
-      select.selectedIndex = 0;
+      input.value = ""; // clear input after adding
     }
   }
 
@@ -266,7 +240,6 @@
     team2 = shuffled.slice(5, 10);
     let extras = shuffled.slice(10);
 
-    // divide extras into subs for each team
     team1Subs = extras.filter((_, i) => i % 2 === 0);
     team2Subs = extras.filter((_, i) => i % 2 === 1);
 
@@ -275,7 +248,6 @@
     renderList("team1subs", team1Subs);
     renderList("team2subs", team2Subs);
 
-    // clear selected players after randomize
     selectedPlayers = [];
     renderList("selectedList", []);
 
