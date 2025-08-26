@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soccer Team Randomizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url("maybepic.jpg") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+
+    .logo-section {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+    .logo-section img {
+      width: 160px;
+    }
+
+    h1 {
+      margin-top: 100px;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .main-layout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .team-table {
+      background: rgba(0,0,0,0.6);
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 350px;
+      text-align: center;
+    }
+    .team-table table {
+      width: 100%;
+      border-collapse: collapse;
+      color: white;
+    }
+    .team-table th, .team-table td {
+      padding: 6px;
+      border: 1px solid #444;
+      text-align: center;
+    }
+    .team-table th {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* darken section headers */
+    .section-header th {
+      background: rgba(0,0,0,0.85) !important;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .field-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .field-container {
+      position: relative;
+      width: 600px;
+    }
+    .field-container img {
+      width: 100%;
+      border: 2px solid #333;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .player {
+      position: absolute;
+      background: rgba(255,255,255,0.85);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+    }
+    .team1 { color: black; }
+    .team2 { color: red; }
+
+    .controls-panel {
+      background: rgba(0,0,0,0.6);
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .controls-panel select,
+    .controls-panel button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .controls-panel .add-btn {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+    }
+    .controls-panel .random-btn {
+      background-color: #2196f3;
+      color: white;
+      font-weight: bold;
+    }
+
+    .formation-panel {
+      background: rgba(0,0,0,0.6);
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 180px;
+      text-align: center;
+    }
+    .formation-btn {
+      background-color: #ff9800;
+      color: white;
+      display: block;
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-section">
+    <img src="https://redacademyonline.co.za/wp-content/uploads/2022/04/redAcademy-Logo-red-white-740px-e1649063495604.png" alt="Logo"/>
+  </div>
+
+  <h1>Soccer Team Randomizer</h1>
+
+  <div class="main-layout">
+    <div class="team-table">
+      <h3>Players & Teams</h3>
+      <table>
+        <tr class="section-header"><th>#</th><th>Selected Players</th></tr>
+        <tbody id="selectedList"><tr><td>-</td><td>-</td></tr></tbody>
+
+        <tr class="section-header"><th>#</th><th>Team 1</th></tr>
+        <tbody id="team1list"><tr><td>-</td><td>-</td></tr></tbody>
+
+        <tr class="section-header"><th>#</th><th>Team 1 Subs</th></tr>
+        <tbody id="team1subs"><tr><td>-</td><td>-</td></tr></tbody>
+
+        <tr class="section-header"><th>#</th><th>Team 2</th></tr>
+        <tbody id="team2list"><tr><td>-</td><td>-</td></tr></tbody>
+
+        <tr class="section-header"><th>#</th><th>Team 2 Subs</th></tr>
+        <tbody id="team2subs"><tr><td>-</td><td>-</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="field-wrapper">
+      <div class="field-container">
+        <img src="fives.png" alt="Soccer Field" />
+        <div id="teamOverlay"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="controls-panel">
+        <select id="playerSelect">
+          <option value="">-- Select a player --</option>
+          <option value="Tashreeq">Tashreeq</option>
+          <option value="Jawaad">Jawaad</option>
+          <option value="Uzair">Uzair</option>
+          <option value="Ridhaa">Ridhaa</option>
+          <option value="Toufeeq">Toufeeq</option>
+          <option value="Joshua">Joshua</option>
+          <option value="Keenan">Keenan</option>
+          <option value="Dylan">Dylan</option>
+          <option value="Dani">Dani</option>
+          <option value="Mr E">Mr E</option>
+          <option value="Matthew">Matthew</option>
+          <option value="Mr S">Mr S</option>
+          <option value="Shuaib">Shuaib</option>
+          <option value="Mickey">Mickey</option>
+          <option value="Shadly">Shadly</option>
+          <option value="Guest">Guest</option>
+        </select>
+        <button class="add-btn" onclick="addPlayer()">Add Player</button>
+        <button class="random-btn" onclick="randomizeTeams()">Randomize Teams</button>
+      </div>
+
+      <div class="formation-panel">
+        <h3>Team 1 Formation</h3>
+        <button class="formation-btn" onclick="setFormation('22', 1)">2-2</button>
+        <button class="formation-btn" onclick="setFormation('31', 1)">3-1</button>
+        <button class="formation-btn" onclick="setFormation('13', 1)">1-3</button>
+        <button class="formation-btn" onclick="setFormation('diamond', 1)">Diamond</button>
+
+        <h3>Team 2 Formation</h3>
+        <button class="formation-btn" onclick="setFormation('22', 2)">2-2</button>
+        <button class="formation-btn" onclick="setFormation('31', 2)">3-1</button>
+        <button class="formation-btn" onclick="setFormation('13', 2)">1-3</button>
+        <button class="formation-btn" onclick="setFormation('diamond', 2)">Diamond</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let selectedPlayers = [];
+  let team1 = [], team2 = [], team1Subs = [], team2Subs = [];
+  let currentFormations = {1: "22", 2: "22"};
+
+  function renderList(id, players) {
+    const container = document.getElementById(id);
+    container.innerHTML = "";
+    if (!players.length) {
+      container.innerHTML = "<tr><td>-</td><td>-</td></tr>";
+      return;
+    }
+    players.forEach((p, i) => {
+      let row = document.createElement("tr");
+      let numCell = document.createElement("td");
+      let nameCell = document.createElement("td");
+      numCell.textContent = i+1;
+      nameCell.textContent = p;
+      row.appendChild(numCell);
+      row.appendChild(nameCell);
+      container.appendChild(row);
+    });
+  }
+
+  function addPlayer() {
+    const select = document.getElementById("playerSelect");
+    const playerName = select.value;
+    if (playerName && !selectedPlayers.includes(playerName)) {
+      selectedPlayers.push(playerName);
+      renderList("selectedList", selectedPlayers);
+      select.remove(select.selectedIndex);
+      select.selectedIndex = 0;
+    }
+  }
+
+  function randomizeTeams() {
+    if (selectedPlayers.length < 2) {
+      alert("Not enough players!");
+      return;
+    }
+    let shuffled = [...selectedPlayers].sort(() => Math.random() - 0.5);
+
+    team1 = shuffled.slice(0, 5);
+    team2 = shuffled.slice(5, 10);
+    let extras = shuffled.slice(10);
+
+    // divide extras into subs for each team
+    team1Subs = extras.filter((_, i) => i % 2 === 0);
+    team2Subs = extras.filter((_, i) => i % 2 === 1);
+
+    renderList("team1list", team1);
+    renderList("team2list", team2);
+    renderList("team1subs", team1Subs);
+    renderList("team2subs", team2Subs);
+
+    // clear selected players after randomize
+    selectedPlayers = [];
+    renderList("selectedList", []);
+
+    placePlayersOnField(team1, 1, currentFormations[1]);
+    placePlayersOnField(team2, 2, currentFormations[2]);
+  }
+
+  function placePlayersOnField(teamPlayers, team, formation) {
+    const overlay = document.getElementById("teamOverlay");
+    [...overlay.querySelectorAll(`.team${team}`)].forEach(el => el.remove());
+
+    if (!teamPlayers.length) return;
+
+    const formations = {
+      "22": team === 1
+        ? [[50, 82], [25, 68], [75, 68], [35, 56], [65, 56]]
+        : [[50, 12], [25, 30], [75, 30], [35, 45], [65, 45]],
+      "31": team === 1
+        ? [[50, 82], [20, 68], [50, 68], [80, 68], [50, 56]]
+        : [[50, 12], [20, 30], [50, 30], [80, 30], [50, 45]],
+      "13": team === 1
+        ? [[50, 82], [50, 68], [25, 56], [75, 56], [50, 52]]
+        : [[50, 12], [50, 30], [25, 45], [75, 45], [50, 45]],
+      "diamond": team === 1
+        ? [[50, 82], [30, 68], [70, 68], [50, 58], [50, 52]]
+        : [[50, 12], [30, 30], [70, 30], [50, 40], [50, 45]],
+    };
+
+    let positions = formations[formation];
+    teamPlayers.forEach((player, i) => {
+      if (positions[i]) {
+        let div = document.createElement("div");
+        div.className = "player team" + team;
+        div.style.left = positions[i][0] + "%";
+        div.style.top = positions[i][1] + "%";
+        div.innerText = player;
+        overlay.appendChild(div);
+      }
+    });
+  }
+
+  function setFormation(type, team) {
+    currentFormations[team] = type;
+    placePlayersOnField(team === 1 ? team1 : team2, team, type);
+  }
+</script>
+</body>
+</html>
