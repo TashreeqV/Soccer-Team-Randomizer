@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: url("./HTML/maybepic.jpg") no-repeat center center fixed;
+      background: url("./Pictures/maybepic.jpg") no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       padding: 0;
@@ -54,7 +54,10 @@
       text-align: center;
     }
     .team-table th {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.15);
+    }
+    .dark-row th {
+      background: rgba(255,255,255,0.3);
     }
 
     .field-wrapper {
@@ -147,26 +150,26 @@
     <div class="team-table">
       <h3>Players & Teams</h3>
       <table>
-        <tr><th>#</th><th>Selected Players</th></tr>
+        <tr class="dark-row"><th>#</th><th>Selected Players</th></tr>
         <tbody id="selectedList"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr><th>#</th><th>Team 1</th></tr>
+        <tr class="dark-row"><th>#</th><th>Team 1</th></tr>
         <tbody id="team1list"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr><th>#</th><th>Team 1 Subs</th></tr>
+        <tr class="dark-row"><th>#</th><th>Team 1 Subs</th></tr>
         <tbody id="team1subs"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr><th>#</th><th>Team 2</th></tr>
+        <tr class="dark-row"><th>#</th><th>Team 2</th></tr>
         <tbody id="team2list"><tr><td>-</td><td>-</td></tr></tbody>
 
-        <tr><th>#</th><th>Team 2 Subs</th></tr>
+        <tr class="dark-row"><th>#</th><th>Team 2 Subs</th></tr>
         <tbody id="team2subs"><tr><td>-</td><td>-</td></tr></tbody>
       </table>
     </div>
 
     <div class="field-wrapper">
       <div class="field-container">
-        <img src="./HTML/fives.png" alt="Soccer Field" />
+        <img src="./Pictures/fives.png" alt="Soccer Field" />
         <div id="teamOverlay"></div>
       </div>
     </div>
@@ -222,19 +225,21 @@
   function addPlayer() {
     const input = document.getElementById("playerInput");
     const playerName = input.value.trim();
-    if (playerName && !selectedPlayers.includes(playerName)) {
+    if (playerName && !selectedPlayers.includes(playerName) && !team1.includes(playerName) && !team2.includes(playerName) && !team1Subs.includes(playerName) && !team2Subs.includes(playerName)) {
       selectedPlayers.push(playerName);
       renderList("selectedList", selectedPlayers);
-      input.value = ""; // clear input after adding
+      input.value = ""; 
     }
   }
 
   function randomizeTeams() {
-    if (selectedPlayers.length < 2) {
+    let allPlayers = [...selectedPlayers, ...team1, ...team2, ...team1Subs, ...team2Subs];
+    if (allPlayers.length < 2) {
       alert("Not enough players!");
       return;
     }
-    let shuffled = [...selectedPlayers].sort(() => Math.random() - 0.5);
+
+    let shuffled = [...allPlayers].sort(() => Math.random() - 0.5);
 
     team1 = shuffled.slice(0, 5);
     team2 = shuffled.slice(5, 10);
