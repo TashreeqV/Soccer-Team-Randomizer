@@ -1,0 +1,241 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url("./Pictures/maybepic.jpg") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+/* Banner */
+.banner {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+.banner .logo img {
+  width: 100px;
+  height: auto;
+}
+.banner h1 {
+  font-family: "Permanent Marker", cursive;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  color: #ffcc00;
+  margin-left: 20px;
+}
+.banner h1 span {
+  color: #ffffff;
+}
+
+/* Layout */
+.main-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Team table */
+.team-table {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 350px;
+  text-align: center;
+}
+.team-table table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+.team-table th,
+.team-table td {
+  padding: 6px;
+  border: 1px solid #444;
+  text-align: center;
+}
+.team-table th {
+  background: rgba(255, 255, 255, 0.15);
+}
+.dark-row th {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Field */
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.field-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.field-container img {
+  width: 100%;
+  height: auto;
+  border: 2px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.player {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 1.2vw;
+  font-size: 15px;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+/* Controls panel */
+.controls-panel {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.controls-panel input,
+.controls-panel button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.controls-panel .add-btn {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+.controls-panel .random-btn {
+  background-color: #2196f3;
+  color: white;
+  font-weight: bold;
+}
+.controls-panel .download-btn {
+  background-color: #9c27b0;
+  color: white;
+  font-weight: bold;
+}
+.controls-panel .download-btn:hover {
+  background-color: #6a0080;
+}
+
+/* Formation panel */
+.formation-panel {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 180px;
+  text-align: center;
+}
+.formation-btn {
+  background-color: #ff9800;
+  color: white;
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Team settings */
+.team-settings {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  min-width: 200px;
+  text-align: center;
+}
+.team-settings label {
+  display: block;
+  margin: 8px 0 4px;
+}
+.team-settings select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .banner h1 {
+    font-size: 2rem;
+    margin: 10px 0 0;
+  }
+  .banner .logo img {
+    width: 80px;
+  }
+
+  .main-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .team-table,
+  .controls-panel,
+  .formation-panel,
+  .team-settings {
+    width: 100%;
+    max-width: 500px;
+    min-width: unset;
+  }
+
+  .team-table table {
+    font-size: 14px;
+  }
+
+  .field-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .controls-panel input,
+  .controls-panel button,
+  .team-settings select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .formation-btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .player {
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+}
